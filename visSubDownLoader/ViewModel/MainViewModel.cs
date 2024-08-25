@@ -28,13 +28,9 @@ public partial class MainViewModel : ObservableObject
         this.connectivity = connectivity;
 
         Credentials? p = CredentailsReader.ReadCredentials();
-        if(p == null)
-        {
-            Console.WriteLine("Credetials not loaded"); 
-            return;
-        }
 
-        this.subfetch = new ApiRequests(p.key, p.username, p.password);
+
+        this.subfetch = new ApiRequests(p?.key, p?.username, p?.password);
 
         Languagelist.Add("en");
         Languagelist.Add("ar");
