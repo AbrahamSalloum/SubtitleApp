@@ -6,15 +6,15 @@ using visSubDownLoader.Models;
 namespace visSubDownLoader.Creds;
 
 
-class Credentails
+class CredentailsReader
 {
     public static Credentials? ReadCredentials()
     {
-        string file = Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, "credentials.json");
+        string file = "C:\\credentials.json";
         string? text = File.ReadAllText(file);
         if (text is null)
         {
-            Console.WriteLine("Can not open the credentails.json file.");
+            Console.WriteLine("Can not open the C:\\credentails.json file.");
             return null;
         }
         Credentials? person = JsonSerializer.Deserialize<Credentials>(text);

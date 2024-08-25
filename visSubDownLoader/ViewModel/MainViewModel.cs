@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using visSubDownLoader.Creds;
 using visSubDownLoader.Models;
 using visSubDownLoader.services;
  
@@ -24,7 +25,15 @@ public partial class MainViewModel : ObservableObject
         Yearlist = new ObservableCollection<YearLabel>(CreateYears());
         Bgcolor = "blue";
         this.connectivity = connectivity;
-        //this.subfetch = new ApiRequests("FAKEKEYKEYKYE", "fakeuser", "password");
+
+        Credentials? p = CredentailsReader.ReadCredentials();
+        if(p == null)
+        {
+            Console.WriteLine("Credetials not loaded"); 
+            return;
+        }
+
+        this.subfetch = new ApiRequests(p.key, p.username, p.password);
 
         Languagelist.Add("en");
         Languagelist.Add("ar");
