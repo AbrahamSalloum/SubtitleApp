@@ -15,8 +15,7 @@
             RowSpacing="5"
             ColumnSpacing="5">
 
-        <Image 
-            
+        <Image  
             Grid.Row="0" 
             Grid.Column="0" 
             Grid.ColumnSpan="2" 
@@ -47,23 +46,20 @@
             ColumnSpacing="5">
 
             <Picker 
-                    
                 Grid.Row="1"
                 Grid.Column="0"
                 SelectedIndex="0"
-
                 ItemsSource="{Binding Languagelist}"
                 ItemDisplayBinding="{Binding .}" />
 
 
             <Picker 
-                    Grid.Row="1" 
-                    Grid.Column="1"
-                                SelectedIndex="0"
-
-                    SelectedItem="{Binding SelectedYear}" 
-                    ItemsSource="{Binding Yearlist}"
-                    ItemDisplayBinding="{Binding Labelyear}" />
+                Grid.Row="1" 
+                Grid.Column="1"
+                SelectedIndex="0"
+                SelectedItem="{Binding SelectedYear}" 
+                ItemsSource="{Binding Yearlist}"
+                ItemDisplayBinding="{Binding Labelyear}" />
 
             <Button 
                 x:Name="buttonName"
@@ -114,8 +110,9 @@
                                            FontSize="24"
                                         />
                                     </VerticalStackLayout>
+                                    <Label Text="{Binding Sparams}" />
                                 </FlexLayout>
-
+                                
                             </Frame>
                         </Grid>
                     </SwipeView>

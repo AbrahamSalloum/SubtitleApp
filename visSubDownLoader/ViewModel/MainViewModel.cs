@@ -1,6 +1,7 @@
 ﻿
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Newtonsoft.Json.Linq;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using visSubDownLoader.Creds;
@@ -62,6 +63,9 @@ public partial class MainViewModel : ObservableObject
     public QueryParams? query;
 
     [ObservableProperty]
+    public string? sparams;
+
+    [ObservableProperty]
     public string bgcolor;
     [RelayCommand]
     async Task Add()
@@ -90,8 +94,19 @@ public partial class MainViewModel : ObservableObject
 
             TextSearchObject.query = Text;
             TextSearchObject.year = SelectedYear?.Year;
-            
 
+            JObject searchterms = JObject.FromObject(TextSearchObject);
+            string urlquery = "";
+            foreach (var p in searchterms)
+            {
+                if (p.Value?.Type != JTokenType.Null)
+                    urlquery += $"{p.Key}={p.Value}&";
+            }
+            if(urlquery is not null)
+            {
+                Sparams = urlquery;
+            }
+            
 
             SubtitleResults? r = await TextSearch(TextSearchObject);
             if (r is null)
@@ -104,7 +119,8 @@ public partial class MainViewModel : ObservableObject
                 Name = Text,
                 Rating = r.total_count,
                 InternalId = Text,
-                results = r
+                results = r,
+                Sparams = urlquery
             };
 
             Items.Add(s);
