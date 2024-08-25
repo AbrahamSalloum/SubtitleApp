@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage    
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="visSubDownLoader.AdvancedSearchPage"
+    Title="AdvancedSearchPage"
+    xmlns:model="clr-namespace:visSubDownLoader.Models"
+    xmlns:viewmodel="clr-namespace:visSubDownLoader.ViewModel"
+    x:DataType="viewmodel:AdvancedSearchModel"
+    xmlns:local="clr-namespace:visSubDownLoader">
+        <VerticalStackLayout Margin="25">
+            
+            <Label 
+                    Text="Advanced Search Options"
+                    VerticalOptions="Center" 
+                    HorizontalOptions="Center" />
+
+
+            <Picker 
+                    Title="MediaType"   
+                    SelectedIndex="0"
+                    SelectedItem="{Binding Mtype}" 
+                    ItemsSource="{Binding FilemediaType}"
+                    ItemDisplayBinding="{Binding .}" />
+            
+            <Picker 
+                    Title="AI Translation"
+                    SelectedItem="{Binding Aitranslated}" 
+                    ItemsSource="{Binding AitranslatedType}"
+                    ItemDisplayBinding="{Binding .}" />
+
+            <Picker 
+                    Title="Foreign Parts Only"
+                    SelectedItem="{Binding Foreignpartsonly}" 
+                    ItemsSource="{Binding ForeignpartsonlyType}"
+                    ItemDisplayBinding="{Binding .}" />
+
+
+            <Picker 
+                    Title="Hearing Impared"
+                    SelectedItem="{Binding HearingImpaired}" 
+                    ItemsSource="{Binding HearingImpairedType}"
+                    ItemDisplayBinding="{Binding .}" />
+
+            <Picker 
+                    Title="Machine Impared"
+                    SelectedItem="{Binding MachineTranslated}" 
+                    ItemsSource="{Binding MachineTranslatedType}"
+                    ItemDisplayBinding="{Binding .}" />
+
+
+            <Entry      
+                    Placeholder="Season Number"
+                    Text="{Binding SeasonNumber}" />
+            
+            <Entry      
+                    Placeholder="Episode Number"
+                    Text="{Binding EpisodeNumber}" />
+
+            <Entry      
+                    Placeholder="imdb ID"
+                    Text="{Binding ImdbID}" />
+
+            <Button 
+                    Text="Apply and Go Back"
+                    Command="{Binding ApplyCommand}" />
+
+    </VerticalStackLayout>
+</ContentPage>

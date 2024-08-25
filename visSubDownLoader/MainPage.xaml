@@ -1,0 +1,126 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+        <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            x:Class="visSubDownLoader.MainPage"
+            Title="MainPage"
+            xmlns:viewmodel="clr-namespace:visSubDownLoader.ViewModel"
+            x:DataType="viewmodel:MainViewModel"
+            xmlns:model="clr-namespace:visSubDownLoader.Models">
+      
+
+        <Grid  
+            RowDefinitions="100, Auto, Auto, 1*"
+            ColumnDefinitions=".75*, .25*"
+            Padding="5"
+            RowSpacing="5"
+            ColumnSpacing="5">
+
+        <Image 
+            
+            Grid.Row="0" 
+            Grid.Column="0" 
+            Grid.ColumnSpan="2" 
+            Source="subicon.jpg"/>
+            
+        <Entry      
+            Grid.Row="1" 
+            Grid.Column="0"
+            Placeholder="Enter Task"
+            Grid.ColumnSpan="1"
+            Text="{Binding Text}"/>
+            
+        <Button 
+            Grid.Row="1" 
+            Grid.Column="1"
+            Text="Search"
+            Command="{Binding AddCommand}" />
+
+
+        <Grid 
+            Grid.Row="2" 
+            Grid.Column="0"
+            RowDefinitions="*, *"
+            Grid.ColumnSpan="2"
+            ColumnDefinitions="*, *, *"
+            Padding="5"
+            RowSpacing="5"
+            ColumnSpacing="5">
+
+            <Picker 
+                    
+                Grid.Row="1"
+                Grid.Column="0"
+                SelectedIndex="0"
+
+                ItemsSource="{Binding Languagelist}"
+                ItemDisplayBinding="{Binding .}" />
+
+
+            <Picker 
+                    Grid.Row="1" 
+                    Grid.Column="1"
+                                SelectedIndex="0"
+
+                    SelectedItem="{Binding SelectedYear}" 
+                    ItemsSource="{Binding Yearlist}"
+                    ItemDisplayBinding="{Binding Labelyear}" />
+
+            <Button 
+                x:Name="buttonName"
+                Grid.Row="1" 
+                Grid.Column="2"
+                Text="Advanced"
+                BackgroundColor="{Binding Bgcolor}"
+                Command="{Binding AdvancedCommand}" />
+
+
+        </Grid>
+        <CollectionView 
+            Grid.Row="3" 
+            Grid.ColumnSpan="2"
+            ItemsSource="{Binding Items}"
+            SelectionMode="None">
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="model:SubItems">
+                    <SwipeView>
+                        <Grid Padding="0,5">
+                            <Frame>
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer 
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MainViewModel}}, Path=TapCommand}"
+                                        CommandParameter="{Binding .}">
+                                        
+                                    </TapGestureRecognizer>
+                                </Frame.GestureRecognizers>
+                                <FlexLayout JustifyContent="SpaceBetween">
+                                    <VerticalStackLayout>
+                                                <Label 
+                                                 Text="{Binding Name}" 
+                                                 FontSize="24"
+                                                 />
+                                                <Label 
+                                                 Text="Search Term" 
+                                                 FontSize="24"
+                                                />
+                                    </VerticalStackLayout>
+                                    <VerticalStackLayout>
+                                        <Label 
+                                           Text="{Binding Rating}" 
+                                           FontSize="24"
+                                        />
+                                        <Label 
+                                           Text="Results" 
+                                           FontSize="24"
+                                        />
+                                    </VerticalStackLayout>
+                                </FlexLayout>
+
+                            </Frame>
+                        </Grid>
+                    </SwipeView>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
+</ContentPage>

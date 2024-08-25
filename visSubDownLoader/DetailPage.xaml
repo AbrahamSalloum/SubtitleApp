@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8" ?>
+        <ContentPage 
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="visSubDownLoader.DetailPage"
+             xmlns:model="clr-namespace:visSubDownLoader.Models"
+             xmlns:viewmodel="clr-namespace:visSubDownLoader.ViewModel"
+             x:DataType="viewmodel:DetailViewModel"
+             xmlns:local="clr-namespace:visSubDownLoader"
+        >
+
+    <Grid 
+        RowDefinitions="1*"
+        ColumnDefinitions="1*"
+        Padding="5">
+
+        <CollectionView 
+            Margin="5"    
+            ItemsSource="{Binding Subs}"
+            SelectionMode="Single">
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="model:SubData" >
+                    <Frame>
+                        <FlexLayout  Wrap="Wrap"  AlignContent="SpaceBetween">
+                            <VerticalStackLayout  HeightRequest="200" WidthRequest="600" FlexLayout.Grow="1" FlexLayout.Basis="33%">
+                                <HorizontalStackLayout>
+                                    <Label Text="Release:"/>
+                                    <Label LineBreakMode="CharacterWrap" MaxLines="3" Text="{Binding attributes.release}"/>
+                                </HorizontalStackLayout>
+                                <HorizontalStackLayout>
+                                    <Label Text="Media Name:"/>
+                                    <Label  LineBreakMode="CharacterWrap" MaxLines="3" Text="{Binding attributes.feature_details.movie_name}"/>
+                                </HorizontalStackLayout>
+                                <HorizontalStackLayout>
+                                    <Label Text="Language:"/>
+                                    <Label Text="{Binding attributes.language}" />
+                                </HorizontalStackLayout>
+                                <Label LineBreakMode="CharacterWrap">
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <local:HyperlinkSpan Text="More Info" Url="{Binding attributes.url}" />
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+                            </VerticalStackLayout>
+                            <VerticalStackLayout FlexLayout.Grow="1" FlexLayout.Basis="33%" HeightRequest="200">
+                                <CollectionView ItemsSource="{Binding attributes.files}">
+                                    <CollectionView.ItemTemplate>
+                                        <DataTemplate x:DataType="model:SubFiles">
+                                            <VerticalStackLayout >
+                                                <Label  Text="{Binding file_id}" />
+                                                <Label LineBreakMode="CharacterWrap" Text="{Binding file_name}" />
+                                                <Label Text="{Binding cd_number}" />
+                                            </VerticalStackLayout>
+                                        </DataTemplate>
+                                    </CollectionView.ItemTemplate>
+                                </CollectionView>
+                            </VerticalStackLayout>
+                            <VerticalStackLayout FlexLayout.AlignSelf="End" WidthRequest="160" HeightRequest="200" >
+                                <Image  Source="{Binding r.img_url}" Aspect="AspectFit"  WidthRequest="160" HeightRequest="200"/>
+                            </VerticalStackLayout>
+                        </FlexLayout>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
+</ContentPage>
