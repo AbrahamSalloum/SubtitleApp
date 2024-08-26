@@ -30,13 +30,17 @@ public partial class MainViewModel : ObservableObject
         Credentials? p = CredentailsReader.ReadCredentials();
 
 
-        this.subfetch = new ApiRequests(p?.key, p?.username, p?.password);
+        if (p != null)
+        {
+            this.subfetch = new ApiRequests(p.key, p.username, p.password);
+        }
+        else {
+            this.subfetch = new ApiRequests(null, null, null);
+        }
 
         Languagelist.Add("en");
         Languagelist.Add("ar");
         Languagelist.Add("cn");
-
-        
 
     }
 

@@ -13,12 +13,12 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 class ApiRequests
 {
-    private string apikey;
-    private string username;
-    private string password;
+    private string? apikey;
+    private string? username;
+    private string? password;
     private string? token;
     private HttpClient client;
-    public ApiRequests(string Apikey, string Username, string Password)
+    public ApiRequests(string? Apikey, string? Username, string? Password)
     {
         apikey = Apikey;
         username = Username;

@@ -34,7 +34,6 @@
             Text="Search"
             Command="{Binding AddCommand}" />
 
-
         <Grid 
             Grid.Row="2" 
             Grid.Column="0"
@@ -52,7 +51,6 @@
                 ItemsSource="{Binding Languagelist}"
                 ItemDisplayBinding="{Binding .}" />
 
-
             <Picker 
                 Grid.Row="1" 
                 Grid.Column="1"
@@ -68,7 +66,6 @@
                 Text="Advanced"
                 BackgroundColor="{Binding Bgcolor}"
                 Command="{Binding AdvancedCommand}" />
-
 
         </Grid>
         <CollectionView 
@@ -89,7 +86,8 @@
                                         
                                     </TapGestureRecognizer>
                                 </Frame.GestureRecognizers>
-                                <FlexLayout JustifyContent="SpaceBetween">
+                                <VerticalStackLayout>
+                                    <FlexLayout JustifyContent="SpaceBetween">
                                     <VerticalStackLayout>
                                                 <Label 
                                                  Text="{Binding Name}" 
@@ -110,9 +108,10 @@
                                            FontSize="24"
                                         />
                                     </VerticalStackLayout>
-                                    <Label Text="{Binding Sparams}" />
+                                    
                                 </FlexLayout>
-                                
+                                    <Label Margin="5" Text="{Binding Sparams}" />
+                                </VerticalStackLayout>
                             </Frame>
                         </Grid>
                     </SwipeView>
