@@ -22,61 +22,53 @@
                 <DataTemplate x:DataType="model:SubData" >
                     <Frame>
                         <Grid 
-                            ColumnDefinitions="3*, 1*"
+                            ColumnDefinitions="1*, 2*"
                             Padding="5">
-                            
-                            <FlexLayout Wrap="Wrap" Grid.Column="0">
-                                <StackLayout>
-                                    <FlexLayout Wrap="Wrap">
-                                        <StackLayout FlexLayout.Basis="33%">
-                                            <Label Text="Release:" FontAttributes="Bold" LineBreakMode="WordWrap" MaximumWidthRequest="250" Padding="5"/>
-                                            <Label Text="{Binding attributes.release}" LineBreakMode="WordWrap" MaximumWidthRequest="250" Padding="5"/>
-                                        </StackLayout>
-                                        <StackLayout  FlexLayout.Basis="33%">
-                                            <Label Text="Media Name:" FontAttributes="Bold" LineBreakMode="CharacterWrap" MaximumWidthRequest="250" Padding="5"/>
-                                            <Label Text="{Binding attributes.feature_details.movie_name}" LineBreakMode="CharacterWrap" MaximumWidthRequest="250" Padding="5"/>
-                                        </StackLayout>
-                                        <StackLayout  FlexLayout.Basis="33%">
-                                            <Label Text="Language:" FontAttributes="Bold" LineBreakMode="WordWrap" MaximumWidthRequest="250" Padding="5" HorizontalOptions="End"/>
-                                            <Label Text="{Binding attributes.language}" LineBreakMode="WordWrap" MaximumWidthRequest="250" Padding="5" HorizontalOptions="End"/>
-                                        </StackLayout>
-                                    </FlexLayout>
-                                </StackLayout>
-                                <StackLayout>
-                                    <CollectionView ItemsSource="{Binding attributes.files}" >
+
+
+
+                            <VerticalStackLayout  Grid.Column="0">
+                                    <Label Text="Release:" FontAttributes="Bold" LineBreakMode="WordWrap" MaximumWidthRequest="250" />
+                                    <Label Text="{Binding attributes.release}" LineBreakMode="WordWrap" MaximumWidthRequest="250"/>
+
+                                    <Label Text="Media Name:" FontAttributes="Bold" LineBreakMode="CharacterWrap" MaximumWidthRequest="250" />
+                                    <Label Text="{Binding attributes.feature_details.movie_name}" LineBreakMode="CharacterWrap" MaximumWidthRequest="250"/>
+
+                                        <Label Text="Language:" FontAttributes="Bold" LineBreakMode="WordWrap" MaximumWidthRequest="250" />
+                                        <Label Text="{Binding attributes.language}" LineBreakMode="WordWrap" MaximumWidthRequest="250" />
+ 
+
+                                <CollectionView ItemsSource="{Binding attributes.files}" >
                                         <CollectionView.ItemTemplate>
                                             <DataTemplate x:DataType="model:SubFiles">
-                                                <FlexLayout Wrap="Wrap" >
-                                                    <StackLayout MaximumWidthRequest="250"  FlexLayout.Basis="33%">
-                                                        <Label Text="ID:" FontAttributes="Bold" LineBreakMode="WordWrap" MaximumWidthRequest="250" Padding="5" />
-                                                        <Label Text="{Binding file_id}" LineBreakMode="WordWrap" MaximumWidthRequest="250" Padding="5"/>
-                                                    </StackLayout>
-                                                    <StackLayout MaximumWidthRequest="250" FlexLayout.Basis="33%">
-                                                        <Label Text="File Name:" FontAttributes="Bold" MaximumWidthRequest="250" Padding="5"/>
-                                                        <Label Text="{Binding file_name}" LineBreakMode="CharacterWrap" MaximumWidthRequest="250" Padding="5"/>
-                                                    </StackLayout>
-                                                    <StackLayout  FlexLayout.Basis="33%">
-                                                        <Label Text="CD Number:" FontAttributes="Bold" MaximumWidthRequest="250" Padding="5"/>
-                                                        <Label Text="{Binding cd_number}" LineBreakMode="WordWrap" MaximumWidthRequest="250" HorizontalOptions="End" Padding="5"/>
-                                                    </StackLayout>
-                                                </FlexLayout>
+                                                <VerticalStackLayout>
+
+                                                    <Label Text="ID:" FontAttributes="Bold" LineBreakMode="WordWrap" MaximumWidthRequest="250"  />
+                                                    <Label Text="{Binding file_id}" LineBreakMode="WordWrap" MaximumWidthRequest="250" />
+
+                                                <Label Text="File Name:" FontAttributes="Bold" MaximumWidthRequest="250" />
+                                                    <Label Text="{Binding file_name}" LineBreakMode="CharacterWrap" MaximumWidthRequest="250" />
+
+                                                    <Label Text="CD Number:" FontAttributes="Bold" MaximumWidthRequest="250" />
+                                                    <Label Text="{Binding cd_number}" LineBreakMode="WordWrap" MaximumWidthRequest="250" />
+
+                                            </VerticalStackLayout>
                                             </DataTemplate>
                                         </CollectionView.ItemTemplate>
                                     </CollectionView>
-                                </StackLayout>
-                            </FlexLayout>
-                            <StackLayout HorizontalOptions="End" Grid.Column="1" >
+                                </VerticalStackLayout>
+
+                            <VerticalStackLayout HorizontalOptions="End" WidthRequest="150" Grid.Column="1">
                                 <Image  Source="{Binding r.img_url}" Aspect="AspectFill"  />
-                                <StackLayout>
-                                    <Label HorizontalOptions="Center">
-                                        <Label.FormattedText>
-                                            <FormattedString >
-                                                <local:HyperlinkSpan Text="More Info" Url="{Binding attributes.url}"/>
-                                            </FormattedString>
-                                        </Label.FormattedText>
-                                    </Label>
-                                </StackLayout>
-                            </StackLayout>
+                                <Label HorizontalOptions="Center">
+                                    <Label.FormattedText>
+                                        <FormattedString >
+                                            <local:HyperlinkSpan Text="More Info" Url="{Binding attributes.url}"/>
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+
+                            </VerticalStackLayout>
                         </Grid>
                     </Frame>
                 </DataTemplate>

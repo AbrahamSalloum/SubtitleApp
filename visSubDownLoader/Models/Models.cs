@@ -159,7 +159,7 @@ public class SubItems
     public int? Rating { get; set; }
 
     public SubtitleResults? results { get; set; }
-    public string? Sparams { get; set; }
+    public QueryParams? Sparams { get; set; }
 }
 
 public class YearLabel

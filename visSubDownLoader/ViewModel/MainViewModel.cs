@@ -63,7 +63,7 @@ public partial class MainViewModel : ObservableObject
     public QueryParams? query;
 
     [ObservableProperty]
-    public string? sparams;
+    public QueryParams? sparams;
 
     [ObservableProperty]
     public string bgcolor;
@@ -96,16 +96,7 @@ public partial class MainViewModel : ObservableObject
             TextSearchObject.year = SelectedYear?.Year;
 
             JObject searchterms = JObject.FromObject(TextSearchObject);
-            string urlquery = "";
-            foreach (var p in searchterms)
-            {
-                if (p.Value?.Type != JTokenType.Null)
-                    urlquery += $"{p.Key}={p.Value}&";
-            }
-            if(urlquery is not null)
-            {
-                Sparams = urlquery;
-            }
+
             
 
             SubtitleResults? r = await TextSearch(TextSearchObject);
@@ -120,7 +111,7 @@ public partial class MainViewModel : ObservableObject
                 Rating = r.total_count,
                 InternalId = Text,
                 results = r,
-                Sparams = urlquery
+                Sparams = Query
             };
 
             Items.Add(s);
