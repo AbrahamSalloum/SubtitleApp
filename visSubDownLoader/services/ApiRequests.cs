@@ -18,14 +18,29 @@ class ApiRequests
     private string? password;
     private string? token;
     private HttpClient client;
-    public ApiRequests(string? Apikey, string? Username, string? Password)
+
+    
+    public ApiRequests()
     {
-        apikey = Apikey;
-        username = Username;
-        password = Password;
+
+        Credentials? p = CredentailsReader.ReadCredentials();
+        apikey = p.key;
+        username = p.username;
+        password = p.password;
         client = ClientSetup();
     }
     public static string BaseAPIUrl = "https://api.opensubtitles.com/api/v1";
+    public static ApiRequests? _apiRequests;
+
+    public static ApiRequests Instance()
+    {
+        if(_apiRequests == null)
+        {
+            _apiRequests = new ApiRequests();
+        }
+
+        return _apiRequests;
+    }
 
     private HttpClient ClientSetup()
     {
@@ -142,11 +157,11 @@ class ApiRequests
         return x;
     }
 
-    public async Task DownloadSubFile(DownLoadLinkData info)
+    public async Task DownloadSubFile(DownLoadLinkData info, string path)
     {
         Stream fileStream = await client.GetStreamAsync(info.link);
 
-        FileStream outputFileStream = new FileStream($".\\{info.file_name}.sub", FileMode.CreateNew);
+        FileStream outputFileStream = new FileStream($"{path}\\{info.file_name}.sub", FileMode.CreateNew);
         await fileStream.CopyToAsync(outputFileStream);
     }
 

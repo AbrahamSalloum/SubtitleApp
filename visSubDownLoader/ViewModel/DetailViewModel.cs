@@ -1,19 +1,25 @@
 ﻿
 
+
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
 using visSubDownLoader.Models;
+using visSubDownLoader.services;
 namespace visSubDownLoader.ViewModel;
 
 
 [QueryProperty("Items", "Items")]
     public partial class DetailViewModel : ObservableObject
 {
+    
     public DetailViewModel()
     {
         subs = [];
+        
     }
+
+    //readonly ApiRequests subfetchinfo;
 
     [ObservableProperty]
     SubItems? items;
@@ -36,11 +42,19 @@ namespace visSubDownLoader.ViewModel;
 
 
             }
-
-
-            
         }
+    }
 
+    [RelayCommand]
+    static async Task Download()
+    {
+        var subfetchinfo = ApiRequests.Instance();
+        DownLoadLinkData? DownloadInfo =  await subfetchinfo.RequestDownloadURL(9209697);
+        if (DownloadInfo != null)
+        {
+            string temppath = Path.GetTempPath();
+            await subfetchinfo.DownloadSubFile(DownloadInfo, temppath);
+        }
     }
 
     [RelayCommand]

@@ -27,16 +27,9 @@ public partial class MainViewModel : ObservableObject
         Bgcolor = "blue";
         this.connectivity = connectivity;
 
-        Credentials? p = CredentailsReader.ReadCredentials();
 
+        this.subfetch = ApiRequests.Instance();
 
-        if (p != null)
-        {
-            this.subfetch = new ApiRequests(p.key, p.username, p.password);
-        }
-        else {
-            this.subfetch = new ApiRequests(null, null, null);
-        }
 
         Languagelist.Add("en");
         Languagelist.Add("ar");
