@@ -25,9 +25,10 @@ class ApiRequests
     {
 
         Credentials? p = CredentailsReader.ReadCredentials();
-        apikey = p.key;
-        username = p.username;
-        password = p.password;
+
+        apikey = p?.key;
+        username = p?.username;
+        password = p?.password;
         client = ClientSetup();
     }
     public static string BaseAPIUrl = "https://api.opensubtitles.com/api/v1";
@@ -149,8 +150,7 @@ class ApiRequests
     {
         HttpRequestMessage requestMessage = new HttpRequestMessage(HttpMethod.Post, $"{BaseAPIUrl}/download");
         requestMessage.Headers.Add("Authorization", $"Bearer {token}");
-        string s = $"{{\n  \"file_id\": {subid}\n}}"; // the wrong spaces and newlines here will cause errrors. 
-        requestMessage.Content = new StringContent($"{{\n  \"file_id\": {subid}\n}}", Encoding.UTF8, "application/json");
+        requestMessage.Content = new StringContent($"{{\n  \"file_id\": {subid}\n}}", Encoding.UTF8, "application/json"); // the wrong spaces and newlines here will cause errrors. 
 
         HttpResponseMessage response = await client.SendAsync(requestMessage);
         string responseAsString = await response.Content.ReadAsStringAsync();
@@ -158,11 +158,15 @@ class ApiRequests
         return x;
     }
 
-    public async Task DownloadSubFile(DownLoadLinkData info, string path)
+    public async Task DownloadSubFile(DownLoadLinkData info, SubAttributes selectedSub, string path)
     {
         Stream fileStream = await client.GetStreamAsync(info.link);
-
-        FileStream outputFileStream = new FileStream($"{path}\\{info.file_name}.srt", FileMode.CreateNew);
+        int? subid = selectedSub?.files?[0].file_id;
+        if (selectedSub?.files?[0].file_id is null)
+        {
+            subid = 0;
+        } 
+        FileStream outputFileStream = new FileStream($"{path}\\{info.file_name}.{subid}.srt", FileMode.CreateNew);
         await fileStream.CopyToAsync(outputFileStream);
     }
 

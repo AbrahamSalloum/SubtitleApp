@@ -19,8 +19,6 @@ namespace visSubDownLoader.ViewModel;
         
     }
 
-    //readonly ApiRequests subfetchinfo;
-
     [ObservableProperty]
     SubItems? items;
 
@@ -56,7 +54,7 @@ namespace visSubDownLoader.ViewModel;
         if (DownloadInfo != null)
         {
             string temppath = "C:\\Users\\abrah\\OneDrive\\Desktop"; //Path.GetTempPath();
-            await subfetchinfo.DownloadSubFile(DownloadInfo, temppath);
+            await subfetchinfo.DownloadSubFile(DownloadInfo, selectedSub, temppath);
         }
     }
 

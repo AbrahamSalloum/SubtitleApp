@@ -70,7 +70,7 @@
                                 <Button  Text="Download"  CommandParameter="{Binding attributes}" Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:DetailViewModel}}, Path=DownloadCommand}" />
 
                             </VerticalStackLayout>
-
+ 
                                
                         </Grid>
                     </Frame>
