@@ -78,7 +78,7 @@
             <Label 
                 
                 Grid.Row="4"
-                Text="{Binding Filepath}"
+                Text="{Binding MovieHashLabel}"
                 FontSize="24"
             />
 

@@ -27,7 +27,7 @@ public partial class MainViewModel : ObservableObject
         Languagelist = [];
         Yearlist = new ObservableCollection<YearLabel>(CreateYears());
         Bgcolor = "blue";
-        Filepath = "none";
+        MovieHashLabel = "";
         this.connectivity = connectivity;
 
 
@@ -66,7 +66,7 @@ public partial class MainViewModel : ObservableObject
 
 
     [ObservableProperty]
-    public String filepath; 
+    public String movieHashLabel; 
 
     [RelayCommand]
     async Task Add()
@@ -225,7 +225,7 @@ public partial class MainViewModel : ObservableObject
                 string moviehash  = MovieHasher.ComputeMovieHashString(path);
 
 
-                Filepath = moviehash;
+                MovieHashLabel = moviehash;
 
 
     }
