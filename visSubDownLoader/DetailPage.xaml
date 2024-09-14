@@ -19,7 +19,7 @@
             SelectionMode="Single">
 
             <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="model:SubData" >
+                <DataTemplate x:DataType="model:SubData" x:Name="TopSub" >
                     <Frame>
                         <Grid 
                             ColumnDefinitions="1*, 2*"
@@ -67,10 +67,8 @@
                                         </FormattedString>
                                     </Label.FormattedText>
                                 </Label>
-                                
-                                <VerticalStackLayout x:DataType="viewmodel:DetailViewModel">
-                                    <Button  Text="Download"  Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:DetailViewModel}}, Path=DownloadCommand}" />
-                                </VerticalStackLayout>
+                                <Button  Text="Download"  CommandParameter="{Binding attributes}" Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:DetailViewModel}}, Path=DownloadCommand}" />
+
                             </VerticalStackLayout>
 
                                

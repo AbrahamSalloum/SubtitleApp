@@ -46,13 +46,16 @@ namespace visSubDownLoader.ViewModel;
     }
 
     [RelayCommand]
-    static async Task Download()
+    static async Task Download(SubAttributes selectedSub)
     {
+        if(selectedSub == null || selectedSub.files == null) return;
+
+
         var subfetchinfo = ApiRequests.Instance();
-        DownLoadLinkData? DownloadInfo =  await subfetchinfo.RequestDownloadURL(9209697);
+        DownLoadLinkData? DownloadInfo =  await subfetchinfo.RequestDownloadURL(selectedSub.files[0].file_id);
         if (DownloadInfo != null)
         {
-            string temppath = Path.GetTempPath();
+            string temppath = "C:\\Users\\abrah\\OneDrive\\Desktop"; //Path.GetTempPath();
             await subfetchinfo.DownloadSubFile(DownloadInfo, temppath);
         }
     }

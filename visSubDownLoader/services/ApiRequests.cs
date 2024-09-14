@@ -11,6 +11,7 @@ using visSubDownLoader.Models;
 using System.Text;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+
 class ApiRequests
 {
     private string? apikey;
@@ -144,12 +145,12 @@ class ApiRequests
         }
     }
 
-    public async Task<DownLoadLinkData?> RequestDownloadURL(int subid)
+    public async Task<DownLoadLinkData?> RequestDownloadURL(int? subid)
     {
         HttpRequestMessage requestMessage = new HttpRequestMessage(HttpMethod.Post, $"{BaseAPIUrl}/download");
         requestMessage.Headers.Add("Authorization", $"Bearer {token}");
         string s = $"{{\n  \"file_id\": {subid}\n}}"; // the wrong spaces and newlines here will cause errrors. 
-        requestMessage.Content = new StringContent(s, Encoding.ASCII, "application/json");
+        requestMessage.Content = new StringContent($"{{\n  \"file_id\": {subid}\n}}", Encoding.UTF8, "application/json");
 
         HttpResponseMessage response = await client.SendAsync(requestMessage);
         string responseAsString = await response.Content.ReadAsStringAsync();
@@ -161,7 +162,7 @@ class ApiRequests
     {
         Stream fileStream = await client.GetStreamAsync(info.link);
 
-        FileStream outputFileStream = new FileStream($"{path}\\{info.file_name}.sub", FileMode.CreateNew);
+        FileStream outputFileStream = new FileStream($"{path}\\{info.file_name}.srt", FileMode.CreateNew);
         await fileStream.CopyToAsync(outputFileStream);
     }
 
