@@ -9,6 +9,7 @@ using visSubDownLoader.Models;
 using visSubDownLoader.services;
 using services;
 using System;
+using System.Xml.Linq;
 
 //using Microsoft.Maui.Graphics;
 
@@ -81,7 +82,7 @@ public partial class MainViewModel : ObservableObject
             }
 
             QueryParams TextSearchObject;
-            if (string.IsNullOrEmpty(Text)) return;
+            //if (string.IsNullOrEmpty(Text)) return;
             if (SelectedYear?.Year == 0) SelectedYear.Year = null;
 
             if(Query is not null)
@@ -96,7 +97,14 @@ public partial class MainViewModel : ObservableObject
             TextSearchObject.query = Text;
             TextSearchObject.year = SelectedYear?.Year;
 
-            JObject searchterms = JObject.FromObject(TextSearchObject);
+            if(MovieHashLabel != "")
+            {
+                TextSearchObject = new QueryParams();
+                TextSearchObject.moviehash = MovieHashLabel;
+                //TextSearchObject.moviehash_match = "true"; 
+            }
+
+            //JObject searchterms = JObject.FromObject(TextSearchObject);
 
             
 
@@ -112,7 +120,7 @@ public partial class MainViewModel : ObservableObject
                 Rating = r.total_count,
                 InternalId = Text,
                 results = r,
-                Sparams = Query
+                Sparams = TextSearchObject
             };
 
             Items.Add(s);
@@ -226,7 +234,7 @@ public partial class MainViewModel : ObservableObject
 
 
                 MovieHashLabel = moviehash;
-
+                Text = result.FileName;
 
     }
 
