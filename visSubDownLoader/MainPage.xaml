@@ -37,9 +37,9 @@
         <Grid 
             Grid.Row="2" 
             Grid.Column="0"
-            RowDefinitions="*, *"
+            RowDefinitions="*, *, *"
             Grid.ColumnSpan="2"
-            ColumnDefinitions="*, *, *"
+            ColumnDefinitions="*, *, *, *"
             Padding="5"
             RowSpacing="5"
             ColumnSpacing="5">
@@ -66,6 +66,21 @@
                 Text="Advanced"
                 BackgroundColor="{Binding Bgcolor}"
                 Command="{Binding AdvancedCommand}" />
+
+            <Button 
+                x:Name="FilePickerBtn"
+                Grid.Row="1" 
+                Grid.Column="3"
+                Text="MovieHash"
+                BackgroundColor="{Binding Bgcolor}"
+                Command="{Binding MovieHashSearchCommand}" />
+
+            <Label 
+                
+                Grid.Row="4"
+                Text="{Binding Filepath}"
+                FontSize="24"
+            />
 
         </Grid>
         <CollectionView 

@@ -7,7 +7,9 @@ using System.Diagnostics;
 using visSubDownLoader.Creds;
 using visSubDownLoader.Models;
 using visSubDownLoader.services;
- 
+using services;
+using System;
+
 //using Microsoft.Maui.Graphics;
 
 namespace visSubDownLoader.ViewModel;
@@ -25,6 +27,7 @@ public partial class MainViewModel : ObservableObject
         Languagelist = [];
         Yearlist = new ObservableCollection<YearLabel>(CreateYears());
         Bgcolor = "blue";
+        Filepath = "none";
         this.connectivity = connectivity;
 
 
@@ -60,6 +63,11 @@ public partial class MainViewModel : ObservableObject
 
     [ObservableProperty]
     public string bgcolor;
+
+
+    [ObservableProperty]
+    public String filepath; 
+
     [RelayCommand]
     async Task Add()
     {
@@ -196,6 +204,30 @@ public partial class MainViewModel : ObservableObject
         {
             Bgcolor = "red";
         }
+    }
+
+    [RelayCommand]
+    public async Task MovieHashSearch()
+    {
+
+        var result = await FilePicker.PickAsync(new PickOptions
+        {
+            
+            PickerTitle = "pick movie file",
+            FileTypes = FilePickerFileType.Videos
+
+        });
+
+        if (result is null) return;
+
+        string path = result.FullPath;
+
+                string moviehash  = MovieHasher.ComputeMovieHashString(path);
+
+
+                Filepath = moviehash;
+
+
     }
 
 }
