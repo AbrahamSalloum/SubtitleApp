@@ -6,10 +6,17 @@
     xmlns:local="clr-namespace:visSubDownLoader"
     Shell.FlyoutBehavior="Disabled"
     Title="visSubDownLoader">
-
-    <ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
-
+    <FlyoutItem Title="Cats"
+                Icon="cat.png">
+        <Tab>
+            <ShellContent
+            Title="Home"
+            ContentTemplate="{DataTemplate local:MainPage}"
+            Route="MainPage" />
+        <ShellContent
+            Title="Settings"
+            ContentTemplate="{DataTemplate local:SettingsPage}"
+            Route="MainPage" />
+            </Tab>
+    </FlyoutItem>
 </Shell>

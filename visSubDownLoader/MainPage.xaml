@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-        <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
             x:Class="visSubDownLoader.MainPage"
             xmlns:viewmodel="clr-namespace:visSubDownLoader.ViewModel"
             x:DataType="viewmodel:MainViewModel"
             xmlns:model="clr-namespace:visSubDownLoader.Models">
-      
 
-        <Grid  
+
+    <Grid  
             RowDefinitions="100, Auto, Auto, 1*"
             ColumnDefinitions=".75*, .25*"
             Padding="5"
@@ -19,14 +19,14 @@
             Grid.Column="0" 
             Grid.ColumnSpan="2" 
             Source="subicon.jpg"/>
-            
+
         <Entry      
             Grid.Row="1" 
             Grid.Column="0"
             Placeholder="Enter Task"
             Grid.ColumnSpan="1"
             Text="{Binding Text}"/>
-            
+
         <Button 
             Grid.Row="1" 
             Grid.Column="1"
@@ -71,15 +71,9 @@
                 Grid.Row="1" 
                 Grid.Column="3"
                 Text="MovieHash"
-                BackgroundColor="{Binding Bgcolor}"
                 Command="{Binding MovieHashSearchCommand}" />
 
-            <Label 
-                
-                Grid.Row="4"
-                Text="{Binding MovieHashLabel}"
-                FontSize="12"
-            />
+
 
         </Grid>
         <CollectionView 
@@ -92,41 +86,51 @@
                 <DataTemplate x:DataType="model:SubItems">
                     <SwipeView>
                         <Grid>
-                            <Frame>
+                            <Frame Margin="5">
                                 <Frame.GestureRecognizers>
                                     <TapGestureRecognizer 
                                         Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MainViewModel}}, Path=TapCommand}"
                                         CommandParameter="{Binding .}">
-                                        
+
                                     </TapGestureRecognizer>
                                 </Frame.GestureRecognizers>
                                 <VerticalStackLayout>
                                     <FlexLayout JustifyContent="SpaceBetween">
-                                    <VerticalStackLayout>
-                                                <Label 
+                                        <VerticalStackLayout>
+                                            <Label 
                                                  Text="{Binding Name}" 
                                                  FontSize="24"
                                                  />
-                                                <Label 
+                                            <Label 
                                                  Text="Search Term" 
                                                  FontSize="24"
                                                 />
-                                    </VerticalStackLayout>
-                                    <VerticalStackLayout>
-                                        <Label 
+                                        </VerticalStackLayout>
+                                        <VerticalStackLayout>
+                                            <Label 
                                            Text="{Binding Rating}" 
                                            FontSize="24"
                                         />
-                                        <Label 
+                                            <Label 
                                            Text="Results" 
                                            FontSize="24"
                                         />
+                                        </VerticalStackLayout>
+
+
+                                    </FlexLayout>
+                                    <VerticalStackLayout>
+                                        <Label 
+                                        Grid.Row="4"
+                                        Text="{Binding QueryLabel}"
+                                        FontSize="12"
+                                       Grid.ColumnSpan="4"
+                                            TextType="Html"
+                                    />
+
                                     </VerticalStackLayout>
-                                    
-                                </FlexLayout>
-     
                                 </VerticalStackLayout>
-                                
+
                             </Frame>
                         </Grid>
                     </SwipeView>

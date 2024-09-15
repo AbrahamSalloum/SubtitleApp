@@ -27,6 +27,9 @@ namespace visSubDownLoader
             builder.Services.AddTransient<AdvancedSearchPage>();
             builder.Services.AddTransient<AdvancedSearchModel>();
 
+            builder.Services.AddTransient<SettingsPage>();
+            builder.Services.AddTransient<SettingsViewModel>();
+
 
 #if DEBUG
             builder.Logging.AddDebug();

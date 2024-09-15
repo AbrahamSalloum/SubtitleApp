@@ -160,6 +160,7 @@ public class SubItems
 
     public SubtitleResults? results { get; set; }
     public QueryParams? Sparams { get; set; }
+    public string? QueryLabel { get; set; }
 }
 
 public class YearLabel

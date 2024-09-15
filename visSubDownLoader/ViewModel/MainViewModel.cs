@@ -6,6 +6,7 @@ using System.Diagnostics;
 using visSubDownLoader.Models;
 using visSubDownLoader.services;
 using services;
+using Newtonsoft.Json.Linq;
 
 namespace visSubDownLoader.ViewModel;
 
@@ -24,8 +25,7 @@ public partial class MainViewModel : ObservableObject
         Bgcolor = "blue";
         MovieHashLabel = "";
         this.connectivity = connectivity;
-
-
+        ShowOptions = true;
         this.subfetch = ApiRequests.Instance();
 
 
@@ -40,6 +40,7 @@ public partial class MainViewModel : ObservableObject
 
     [ObservableProperty]
     YearLabel? selectedYear;
+
 
     [ObservableProperty]
     ObservableCollection<string> languagelist;
@@ -61,7 +62,10 @@ public partial class MainViewModel : ObservableObject
 
 
     [ObservableProperty]
-    public String movieHashLabel; 
+    public String movieHashLabel;
+
+    [ObservableProperty]
+    public Boolean showOptions;
 
     [RelayCommand]
     async Task Add()
@@ -79,11 +83,12 @@ public partial class MainViewModel : ObservableObject
 
             if (SelectedYear?.Year == 0) SelectedYear.Year = null;
 
-            if(Query is not null)
+            if (Query is not null)
             {
-                 TextSearchObject = Query;
+                TextSearchObject = Query;
 
-            } else
+            }
+            else
             {
                 TextSearchObject = new QueryParams();
             }
@@ -91,7 +96,7 @@ public partial class MainViewModel : ObservableObject
             TextSearchObject.query = Text;
             TextSearchObject.year = SelectedYear?.Year;
 
-            if(string.IsNullOrEmpty(MovieHashLabel))
+            if (string.IsNullOrEmpty(MovieHashLabel) is false)
             {
                 TextSearchObject = new QueryParams();
                 TextSearchObject.moviehash = MovieHashLabel;
@@ -102,17 +107,30 @@ public partial class MainViewModel : ObservableObject
             {
                 return;
             }
+            MovieHashLabel = "";
             r.total_count ??= 0;
+
+
+            string qq = "";
+            foreach (var p in JObject.FromObject(TextSearchObject))
+            {
+                if (p.Value?.Type != JTokenType.Null)
+                    qq += $"<b>{p.Key}</b>: {p.Value} ";
+            }
+
             SubItems s = new()
             {
                 Name = Text,
                 Rating = r.total_count,
                 InternalId = Text,
                 results = r,
-                Sparams = TextSearchObject
+                Sparams = TextSearchObject,
+                QueryLabel = qq
             };
 
             Items.Add(s);
+            Query = new QueryParams();
+
 
         }
         catch (Exception ex)
@@ -196,7 +214,7 @@ public partial class MainViewModel : ObservableObject
 
     partial void OnQueryChanged(QueryParams? value)
     {
-        if(Query is not null)
+        if (Query is not null)
         {
             Bgcolor = "red";
         }
@@ -208,7 +226,7 @@ public partial class MainViewModel : ObservableObject
 
         var result = await FilePicker.PickAsync(new PickOptions
         {
-            
+
             PickerTitle = "pick movie file",
             FileTypes = FilePickerFileType.Videos
 
@@ -218,7 +236,7 @@ public partial class MainViewModel : ObservableObject
 
         string path = result.FullPath;
 
-        string moviehash  = MovieHasher.ComputeMovieHashString(path);
+        string moviehash = MovieHasher.ComputeMovieHashString(path);
         MovieHashLabel = moviehash;
         Text = result.FileName;
     }

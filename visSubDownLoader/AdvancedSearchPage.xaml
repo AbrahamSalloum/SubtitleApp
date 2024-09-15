@@ -48,20 +48,26 @@
                     ItemsSource="{Binding MachineTranslatedType}"
                     ItemDisplayBinding="{Binding .}" />
 
-
+            <Label Text="Season Number" />
+            
             <Entry      
                     Placeholder="Season Number"
                     Text="{Binding SeasonNumber}" />
-            
+
+
+            <Label Text="Episode Number" />
             <Entry      
                     Placeholder="Episode Number"
                     Text="{Binding EpisodeNumber}" />
 
+
+            <Label Text="IMDb ID" />
             <Entry      
-                    Placeholder="imdb ID"
+                    Placeholder="IMDb ID"
                     Text="{Binding ImdbID}" />
 
             <Button 
+                    Margin="10"
                     Text="Apply and Go Back"
                     Command="{Binding ApplyCommand}" />
 
