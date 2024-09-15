@@ -20,18 +20,14 @@
             Grid.ColumnSpan="2" 
             Source="subicon.jpg"/>
 
-        <Entry      
+        <SearchBar      
             Grid.Row="1" 
             Grid.Column="0"
-            Placeholder="Enter Task"
-            Grid.ColumnSpan="1"
+            Placeholder="Search..."
+            Grid.ColumnSpan="2"
+            SearchCommand ="{Binding AddCommand}"
             Text="{Binding Text}"/>
 
-        <Button 
-            Grid.Row="1" 
-            Grid.Column="1"
-            Text="Search"
-            Command="{Binding AddCommand}" />
 
         <Grid 
             Grid.Row="2" 
