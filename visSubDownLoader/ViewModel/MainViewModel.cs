@@ -1,17 +1,11 @@
 ﻿
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Newtonsoft.Json.Linq;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
-using visSubDownLoader.Creds;
 using visSubDownLoader.Models;
 using visSubDownLoader.services;
 using services;
-using System;
-using System.Xml.Linq;
-
-//using Microsoft.Maui.Graphics;
 
 namespace visSubDownLoader.ViewModel;
 
@@ -82,7 +76,7 @@ public partial class MainViewModel : ObservableObject
             }
 
             QueryParams TextSearchObject;
-            //if (string.IsNullOrEmpty(Text)) return;
+
             if (SelectedYear?.Year == 0) SelectedYear.Year = null;
 
             if(Query is not null)
@@ -97,16 +91,11 @@ public partial class MainViewModel : ObservableObject
             TextSearchObject.query = Text;
             TextSearchObject.year = SelectedYear?.Year;
 
-            if(MovieHashLabel != "")
+            if(string.IsNullOrEmpty(MovieHashLabel))
             {
                 TextSearchObject = new QueryParams();
                 TextSearchObject.moviehash = MovieHashLabel;
-                //TextSearchObject.moviehash_match = "true"; 
             }
-
-            //JObject searchterms = JObject.FromObject(TextSearchObject);
-
-            
 
             SubtitleResults? r = await TextSearch(TextSearchObject);
             if (r is null)
@@ -198,7 +187,6 @@ public partial class MainViewModel : ObservableObject
                 Labelyear = year.ToString()
             };
 
-
             yyyy.Add(y);
             year--;
         }
@@ -230,12 +218,9 @@ public partial class MainViewModel : ObservableObject
 
         string path = result.FullPath;
 
-                string moviehash  = MovieHasher.ComputeMovieHashString(path);
-
-
-                MovieHashLabel = moviehash;
-                Text = result.FileName;
-
+        string moviehash  = MovieHasher.ComputeMovieHashString(path);
+        MovieHashLabel = moviehash;
+        Text = result.FileName;
     }
 
 }
