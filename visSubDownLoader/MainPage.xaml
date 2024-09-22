@@ -34,7 +34,7 @@
             Grid.Column="0"
             RowDefinitions="*, *, *"
             Grid.ColumnSpan="2"
-            ColumnDefinitions="*, *, *, *"
+            ColumnDefinitions="*, *, *, *, *,*"
             Padding="5"
             RowSpacing="5"
             ColumnSpacing="5">
@@ -58,6 +58,7 @@
                 x:Name="buttonName"
                 Grid.Row="1" 
                 Grid.Column="2"
+                Grid.ColumnSpan="2"
                 Text="Advanced"
                 BackgroundColor="{Binding Bgcolor}"
                 Command="{Binding AdvancedCommand}" />
@@ -65,7 +66,8 @@
             <Button 
                 x:Name="FilePickerBtn"
                 Grid.Row="1" 
-                Grid.Column="3"
+                Grid.ColumnSpan="2"
+                Grid.Column="4"
                 Text="MovieHash"
                 Command="{Binding MovieHashSearchCommand}" />
 

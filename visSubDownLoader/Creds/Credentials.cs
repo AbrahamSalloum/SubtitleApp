@@ -11,9 +11,9 @@ class CredentailsReader
 
 		try
 		{
-            string user = Preferences.Default.Get("user", "Unknown");
-            string pass = Preferences.Default.Get("pass", "Unknown");
-            string userkey = Preferences.Default.Get("userkey", "Unknown");
+            string user = Preferences.Default.Get("user", "");
+            string pass = Preferences.Default.Get("pass", "");
+            string userkey = Preferences.Default.Get("userkey", "");
 
             Credentials person = new() { username = user, password = pass, key = userkey };
 
@@ -24,7 +24,7 @@ class CredentailsReader
 
 			Console.WriteLine($"{e.Message}");  
             return null;    
-		}
+		} 
 
         
     }
